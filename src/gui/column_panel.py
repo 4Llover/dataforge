@@ -175,10 +175,17 @@ class ColumnPanel(QWidget):
             if old != new:
                 self._renames[old] = new
 
-        # 更新复选框文本
-        for old, cb in self._checkboxes.items():
-            new = self._renames.get(old, old)
-            cb.setText(new if new == old else f"{old} → {new}")
+        # 更新复选框 key 和文本（关键：key 要跟 DataFrame 的列名保持一致）
+        if self._renames:
+            new_checkboxes = {}
+            for old, cb in self._checkboxes.items():
+                new = self._renames.get(old, old)
+                if new != old:
+                    new_checkboxes[new] = cb
+                    cb.setText(new)
+                else:
+                    new_checkboxes[old] = cb
+            self._checkboxes = new_checkboxes
 
         QMessageBox.information(self, "完成", f"已设置 {len(self._renames)} 个列重命名")
 

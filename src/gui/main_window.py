@@ -659,14 +659,17 @@ class MainWindow(QMainWindow):
             return
 
         # 保存撤销
-        self._undo_stack.push("列选择", df.copy())
+        self._undo_stack.push("列操作", df.copy())
 
         # 应用重命名
         renames = self.column_panel.get_renames()
         if renames:
-            df = df.rename(columns=renames)
+            # 只重命名 DataFrame 中实际存在的列
+            valid_renames = {k: v for k, v in renames.items() if k in df.columns}
+            if valid_renames:
+                df = df.rename(columns=valid_renames)
 
-        # 选择列
+        # 选择列（selected_cols 已经是新列名了）
         available = [c for c in selected_cols if c in df.columns]
         if available:
             df = df[available].copy()
