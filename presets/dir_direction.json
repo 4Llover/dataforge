@@ -1,0 +1,11 @@
+{
+  "name": "DIR 方向数据",
+  "description": "DIR 格式方向数据（仅高温分量）",
+  "detect_rule": { "line_ends_with": ["ht", "lt"] },
+  "parser": "dir",
+  "default_columns": ["SampleID", "N", "Dg", "Ig", "Ds", "Is", "a95"],
+  "transforms": [
+    { "type": "filter_rows", "column": "type", "condition": "equals", "value": "HT" },
+    { "type": "clean_column", "column": "SampleID", "remove_pattern": "DirOKir|Dir.Kir|Dir" }
+  ]
+}

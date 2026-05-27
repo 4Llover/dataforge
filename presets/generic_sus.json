@@ -1,0 +1,10 @@
+{
+  "name": "通用磁化率数据",
+  "description": "含深度和磁化率列的表格数据",
+  "parser": "tabular",
+  "default_columns": ["depth", "Kmass"],
+  "transforms": [
+    { "type": "sort", "by": "depth", "ascending": true },
+    { "type": "filter_rows", "column": "depth", "condition": "not_null" }
+  ]
+}

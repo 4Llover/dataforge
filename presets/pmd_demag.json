@@ -1,0 +1,8 @@
+{
+  "name": "PMD 热退磁",
+  "description": "PMD/DAT 格式逐步热退磁数据",
+  "detect_rule": { "contains": "Xc (Am2)" },
+  "parser": "pmd",
+  "default_columns": ["specimen", "treatment", "MAG", "Ds", "Is"],
+  "transforms": []
+}
